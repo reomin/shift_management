@@ -62,6 +62,7 @@ export default function WithSubnavigation() {
           </Flex>
         </Flex>
 
+        {/* sessionがあるかどうかで表示させる内容を変える */}
         <Stack
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
@@ -243,22 +244,22 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Inspiration',
+    label: 'ユーザー管理',
     children: [
       {
-        label: 'Explore Design Work',
-        subLabel: 'Trending Design to inspire you',
-        href: '#',
+        label: '追加',
+        subLabel: 'ユーザーを追加する',
+        href: '/admin/manage/user',
       },
       {
-        label: 'New & Noteworthy',
-        subLabel: 'Up-and-coming Designers',
+        label: '一覧',
+        subLabel: 'ユーザー一覧を確認する',
         href: '#',
       },
     ],
   },
   {
-    label: 'Find Work',
+    label: '',
     children: [
       {
         label: 'Job Board',
