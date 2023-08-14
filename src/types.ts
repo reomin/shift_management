@@ -5,3 +5,9 @@ export interface RowData {
     name: string;
     age: number;
   }
+
+
+export interface User {
+    id: number;
+    name: string;
+  }

@@ -23,15 +23,18 @@ export default function Home() {
   const [name, setName] = useState('');
   const [level, setLevel] = useState('初心者');
 
+  const apiUrl = process.env.NEXT_PUBLIC_URL;
+
+  console.log(apiUrl);
+  console.log(process.env.NEXT_PUBLIC_URL);
   console.log(name);
   console.log(level);
 
-  const handleSubmit = async (e) => {
-    console.log("こんにちは");
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       // APIエンドポイントにPOSTリクエストを送信
-      const response = await fetch('http://localhost:8006/api/users', {
+      const response = await fetch(`${apiUrl}/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +59,7 @@ export default function Home() {
                 <FormLabel>名前を入力</FormLabel>
                 <Input placeholder="name" 
                 value={name}
-                onChange={(e) => setName(e.target.value)} />
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)} />
                 <FormErrorMessage>エラーが起きています</FormErrorMessage>
             </FormControl>
             </div>

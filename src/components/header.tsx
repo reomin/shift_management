@@ -251,10 +251,11 @@ const NAV_ITEMS: Array<NavItem> = [
         subLabel: 'ユーザーを追加する',
         href: '/admin/manage/user',
       },
+      
       {
         label: '一覧',
         subLabel: 'ユーザー一覧を確認する',
-        href: '#',
+        href: '/admin/manage/user/list',
       },
     ],
   },
