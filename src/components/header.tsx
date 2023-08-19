@@ -251,7 +251,7 @@ const NAV_ITEMS: Array<NavItem> = [
         subLabel: 'ユーザーを追加する',
         href: '/admin/manage/user',
       },
-      
+
       {
         label: '一覧',
         subLabel: 'ユーザー一覧を確認する',
@@ -260,26 +260,22 @@ const NAV_ITEMS: Array<NavItem> = [
     ],
   },
   {
-    label: '',
+    label: 'シフト管理',
     children: [
       {
-        label: 'Job Board',
-        subLabel: 'Find your dream design job',
-        href: '#',
+        label: '作る',
+        subLabel: 'シフトを作成する',
+        href: '/admin/manage/shift/detail',
       },
       {
-        label: 'Freelance Projects',
-        subLabel: 'An exclusive list for contract work',
-        href: '#',
+        label: '管理する',
+        subLabel: 'シフトを管理する',
+        href: '/admin/manage/shift',
       },
     ],
   },
   {
     label: 'Learn Design',
-    href: '#',
-  },
-  {
-    label: 'Hire Designers',
     href: '#',
   },
 ]
