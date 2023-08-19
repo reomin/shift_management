@@ -13,7 +13,6 @@ import {
   Box
 } from '@chakra-ui/react'; // お使いのUIライブラリに合わせてインポートを調整
 
-
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -23,31 +22,27 @@ interface TableProps {
   data: RowData[];
 }
 
-
-// getでeventテーブルの情報を取得する
-
+//indexページからpropsを渡す
 const Table: React.FC<TableProps> = ({ data }) => {
-  const [selectedDate, setSelectedDate] = useState<string | null>(null); // 選択された日付を管理するstate
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedEvents, setSelectedEvents] = useState<{ title: string; date: string }[]>([]);
 
   const eventData = data.map((row) => ({
     title: row.title,
     date: row.date,
   }));
 
-  const handleDateSelect = (selectionInfo:any) => {
-    console.log(selectionInfo);
-    const selectedDate = selectionInfo.startStr; // 選択された日付を取得
-
-    setSelectedDate(selectedDate); // 選択された日付をstateに設定
-    const selectedEvents = eventData.filter((event) => event.date === selectedDate);
-
-    // ポップオーバーを表示
+  const handleDateSelect = (selectionInfo: any) => {
+    const selectedDate = selectionInfo.startStr;
     setSelectedDate(selectedDate);
+
+    const eventsForSelectedDate = eventData.filter((event) => event.date === selectedDate);
+    setSelectedEvents(eventsForSelectedDate);
   };
 
   return (
-  <Box>
-    <div className='m-8'>
+    <Box>
+      <div className='m-8'>
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
@@ -58,28 +53,27 @@ const Table: React.FC<TableProps> = ({ data }) => {
         />
       </div>
       <div className="mx-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      {/* ポップオーバー */}
-      {selectedDate && (
-              <Popover isOpen={selectedDate !== null} onClose={() => setSelectedDate(null)}>
-                <PopoverTrigger>
-                  {/* ここでトリガーとなる要素を設定 */}
-                <Button colorScheme='blue'>選択した日付のイベント</Button>
-                </PopoverTrigger>
-                <Portal>
-                  <PopoverContent>
-                  <PopoverArrow />
-                  <PopoverHeader>{`選択された日付 (${selectedDate}) のイベント`}</PopoverHeader>
-                  <PopoverCloseButton />
-                  <PopoverBody>
-                    {/* イベントの表示 */}
-                    {/* selectedEventsの内容を表示 */}
-                  </PopoverBody>
-                </PopoverContent>
-              </Portal>
-           </Popover>
-          )}
+        {selectedDate && (
+          <Popover isOpen={selectedDate !== null} onClose={() => setSelectedDate(null)}>
+            <PopoverTrigger>
+              <Button colorScheme='blue'>選択した日付のイベント</Button>
+            </PopoverTrigger>
+            <Portal>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverHeader>{`選択された日付 (${selectedDate}) のイベント`}</PopoverHeader>
+                <PopoverCloseButton />
+                <PopoverBody>
+                  {selectedEvents.map((event, index) => (
+                    <div key={index}>{event.title}</div>
+                  ))}
+                </PopoverBody>
+              </PopoverContent>
+            </Portal>
+          </Popover>
+        )}
       </div>
-  </Box>
+    </Box>
   );
 };
 

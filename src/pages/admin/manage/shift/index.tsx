@@ -6,10 +6,10 @@ import Layout from '@/components/layout';
 const Shift = () => {
 
     //データの内容を変える
-    const data = [
-        { id: 1, name: 'Alice', age: 25 },
-        { id: 2, name: 'Bob', age: 30 },
-        { id: 3, name: 'Charlie', age: 22 },
+      const data = [
+        { id: 1, title: 'Event 1', date: '2023-08-01' },
+        { id: 2, title: 'Event 2', date: '2023-08-10' },
+        // 他のイベントもここに追加
       ];
       
   return (
