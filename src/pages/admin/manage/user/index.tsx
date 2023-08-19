@@ -44,8 +44,11 @@ export default function Home() {
 
       const data = await response.json();
       console.log(data.message);
-      // 成功した場合の処理を追加
+      
+      location.href = '/admin/manage/user/list';
+
     } catch (error) {
+      alert("エラーが発生しました");
       console.error('Error saving user:', error);
       // エラー処理を追加
     }
