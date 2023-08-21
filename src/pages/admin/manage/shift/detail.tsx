@@ -33,9 +33,20 @@ import Layout from '@/components/layout'
 
 const Form1 = () => {
   const [name, setName] = useState('')
-
-  console.log(name);
+  const [id, setId] = useState('')
   const [users, setUsers] = useState<User[]>([]);
+  const [date,setSelectedDate] =useState('')
+
+  const handleItemClick = (item:any) => {
+    // item を使用して必要な処理を行う
+    setName(item.name);
+    setId(item.id);
+    console.log(date);
+  };
+
+  const handleDateChange =(e:any) =>{
+    setSelectedDate(e.target.value);
+  }
 
   useEffect(() => {
     async function fetchUsers() {
@@ -46,7 +57,26 @@ const Form1 = () => {
     fetchUsers();
   }, []);
 
-  
+  const handleButtonClick =async()=>{
+     // APIリクエストを行う
+     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/shifts`, {
+      method: 'POST', // 例: POSTリクエストを送信
+      headers: {
+        'Content-Type': 'application/json', // リクエストヘッダーを設定
+      },
+      body: JSON.stringify({ uid: id, date: date }), // 送信するデータをJSON形式に変換して設定
+    });
+
+
+    if (response.ok) {
+      alert(
+       "成功"
+      );
+    } else {
+      alert("失敗");
+    }
+
+  }
 
 
   return (
@@ -70,56 +100,48 @@ const Form1 = () => {
                 </MenuButton>
                 <MenuList>
                   {users.map(item => (
-                    <MenuItem key={item.id} onClick={() => setName(item.name)}>{item.name}</MenuItem>
+                    <MenuItem key={item.id} onClick={() => handleItemClick(item)}>{item.name}</MenuItem>
                   ))}
                 </MenuList>
               </>
             )}
             </Menu>
       </Box>
-
+      
     <Box className='mt-8'>
       <Input
-        placeholder="Select Date and Time"
+        placeholder="date"
         size="md"
         type="datetime-local"
+        value={date} // useStateで管理している値をセット
+        onChange={handleDateChange} // 入力値の変更時に呼ばれる関数を設定
       />
     </Box>
-    </Box>
-  )
-}
 
-
-export default function Multistep() {
-  const toast = useToast()
-  const [step, setStep] = useState(1)
-
-  return (
-
-    <Layout>
-      <div >
-        <Form1 />
-        <ButtonGroup mt="5%" w="100%">
+    <ButtonGroup mt="5%" w="100%">
           <Flex w="100%" justifyContent="space-between">
             <Flex>
             <Button
                 w="7rem"
                 colorScheme="red"
                 variant="solid"
-                onClick={() => {
-                  toast({
-                    title: 'Account created.',
-                    description: "We've created your account for you.",
-                    status: 'success',
-                    duration: 3000,
-                    isClosable: true,
-                  })
-                }}>
+                onClick={handleButtonClick}>
                 Submit
               </Button>
             </Flex>
           </Flex>
-        </ButtonGroup>
+    </ButtonGroup>
+
+    </Box>
+  )
+}
+
+
+export default function Multistep() {
+  return (
+    <Layout>
+      <div >
+        <Form1 />
       </div>
     </Layout>
   )
