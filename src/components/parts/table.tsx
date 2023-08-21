@@ -56,10 +56,10 @@ const Table: React.FC<TableProps> = ({ data }) => {
         {selectedDate && (
           <Popover isOpen={selectedDate !== null} onClose={() => setSelectedDate(null)}>
             <PopoverTrigger>
-              <Button colorScheme='blue'>選択した日付のイベント</Button>
+              <h1></h1>
             </PopoverTrigger>
             <Portal>
-              <PopoverContent>
+            <PopoverContent width='1000px' height='500px' p='4'> {/* 最大幅とパディングを調整 */}
                 <PopoverArrow />
                 <PopoverHeader>{`選択された日付 (${selectedDate}) のイベント`}</PopoverHeader>
                 <PopoverCloseButton />

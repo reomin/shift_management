@@ -1,9 +1,22 @@
 import React from 'react';
 import Table from '@/components/parts/table';
 import Layout from '@/components/layout';
+import { useEffect, useState } from 'react';
 
 
 const Shift = () => {
+
+  const [shifts, setShifts] = useState('')
+  console.log(shifts);
+
+  useEffect(() => {
+    async function fetchUsers() {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/shifts`); 
+      const data = await response.json();
+      setShifts(data);
+    }
+    fetchUsers();
+  }, []);
 
     //データの内容を変える
       const data = [
